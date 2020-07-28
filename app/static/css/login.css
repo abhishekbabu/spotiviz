@@ -1,0 +1,70 @@
+body {
+  font-family: Circular, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body > footer {
+  padding: 5vh 5vw;
+}
+
+header, main {
+  text-align: center;
+}
+
+footer {
+  margin-top: 50px;
+  padding-top: 25px;
+  border-top: 1px solid lightgrey;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #1DB954 !important;
+  border: #1DB954 !important;
+  border-radius: 23px !important;
+  color: #fff !important;
+}
+
+.link {
+  color: #1DB954;
+}
+
+@font-face {
+  font-family: Circular;
+  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-light.woff2) format("woff2"),
+       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-light.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Circular;
+  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-book.woff2) format("woff2"),
+       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-book.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Circular;
+  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-medium.woff2) format("woff2"),
+       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-medium.woff) format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Circular;
+  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-bold.woff2) format("woff2"),
+       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-bold.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Circular;
+  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-black.woff2) format("woff2"),
+       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-black.woff) format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
