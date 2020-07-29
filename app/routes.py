@@ -20,7 +20,7 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 # Server-side parameters
 CLIENT_SIDE_URL = "http://127.0.0.1:5000/"
 REDIRECT_URI = "http://127.0.0.1:5000/visualize"
-SCOPE = 'user-read-private user-read-playback-state user-modify-playback-state user-library-read'
+SCOPE = 'user-read-private user-read-playback-state user-modify-playback-state user-library-read user-read-recently-played'
 STATE = ""
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
@@ -69,9 +69,18 @@ def spotify_sentiment_analysis():
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
     profile_data = json.loads(profile_response.text)
     
-    print(profile_data)
+    # print(profile_data)
 
     name = profile_data['display_name'].partition(' ')[0]
     profile_pic = profile_data['images'][0]['url']
 
-    return render_template('visualize.html', name=name, profile_pic=profile_pic)
+    # Get recently played tracks
+    recently_played_api_endpoint = "{}/me/player/recently-played".format(SPOTIFY_API_URL)
+    recently_played_response = requests.get(recently_played_api_endpoint, headers=authorization_header)
+    recently_played = json.loads(recently_played_response.text)
+
+    recent_6_tracks = recently_played["items"][0:6]
+
+    # print(recent_6_tracks)
+
+    return render_template('visualize.html', name=name, profile_pic=profile_pic, recent_6_tracks=recent_6_tracks)
