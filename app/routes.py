@@ -1,86 +1,45 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, session
 from app import app
-import urllib
-from urllib.parse import quote
-import base64
-import requests
-import json
-
-#  Client keys
-CLIENT_ID = "78475032f6474dc7a7dabf6fc6b9d1cf"
-CLIENT_SECRET = "38d6c17959ed4abaa582503a118488e2"
-
-# Spotify URLS
-SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
-SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
-SPOTIFY_API_BASE_URL = "https://api.spotify.com"
-API_VERSION = "v1"
-SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
-
-# Server-side parameters
-CLIENT_SIDE_URL = "http://127.0.0.1:5000/"
-REDIRECT_URI = "http://127.0.0.1:5000/visualize"
-SCOPE = 'user-read-private user-read-playback-state user-modify-playback-state user-library-read user-read-recently-played'
-STATE = ""
-SHOW_DIALOG_bool = True
-SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
-
-auth_query_parameters = {
-    "response_type": "code",
-    "redirect_uri": REDIRECT_URI,
-    "scope": SCOPE,
-    "client_id": CLIENT_ID
-}
+from app import spotify_service
 
 # App routes
 @app.route('/')
-def spotify():
+def login():
     return render_template('login.html')
 
 @app.route('/authenticate')
-def spotify_auth():
-    url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key, val in auth_query_parameters.items()])
-    auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
-    return redirect(auth_url)
- 
-@app.route('/visualize')
-def spotify_sentiment_analysis():
+def authenticate():
+    return redirect(spotify_service.AUTH_URL)
+
+@app.route('/callback')
+def callback():
     auth_token = request.args['code']
-    code_payload = {
-        "grant_type": "authorization_code",
-        "code": str(auth_token),
-        "redirect_uri": REDIRECT_URI
-    }
+    auth_header = spotify_service.authorize(auth_token)
+    session['auth_header'] = auth_header
 
-    base64encoded = base64.b64encode("{}:{}".format(CLIENT_ID, CLIENT_SECRET).encode())
-    headers = {"Authorization": "Basic {}".format(base64encoded.decode())}
-    post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload, headers=headers)
+    return redirect('profile')
 
-    response_data = json.loads(post_request.text)
-    access_token = response_data["access_token"]
-    refresh_token = response_data["refresh_token"]
-    token_type = response_data["token_type"]
-    expires_in = response_data["expires_in"]
+@app.route('/profile')
+def profile():
+    if 'auth_header' in session:
+        auth_header = session['auth_header']
 
-    authorization_header = {"Authorization":"Bearer {}".format(access_token)}
+        # Get profile data
+        profile_data = spotify_service.get_user_profile(auth_header)
+        first_name = profile_data['display_name'].partition(' ')[0]
+        profile_pic = profile_data['images'][0]['url']
 
-    # Get profile data
-    user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
-    profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
-    profile_data = json.loads(profile_response.text)
+        # Get 6 most recently played tracks
+        recently_played = spotify_service.get_recently_played(auth_header)
+        recent_6_tracks = recently_played["items"][0:6]
+
+        recent_tracks = {}
+        for item in recently_played["items"]:
+            if item["track"]["id"] not in recent_tracks.keys():
+                recent_tracks[item["track"]["id"]] = item
+            if len(recent_tracks) == 6:
+                break
+
+        return render_template('profile.html', name=first_name, profile_pic=profile_pic, recent_6_tracks=recent_tracks.values())
     
-    # print(profile_data)
-
-    name = profile_data['display_name'].partition(' ')[0]
-    profile_pic = profile_data['images'][0]['url']
-
-    # Get recently played tracks
-    recently_played_api_endpoint = "{}/me/player/recently-played".format(SPOTIFY_API_URL)
-    recently_played_response = requests.get(recently_played_api_endpoint, headers=authorization_header)
-    recently_played = json.loads(recently_played_response.text)
-
-    recent_6_tracks = recently_played["items"][0:6]
-
-    # print(recent_6_tracks)
-
-    return render_template('visualize.html', name=name, profile_pic=profile_pic, recent_6_tracks=recent_6_tracks)
+    return render_template('profile.html')
