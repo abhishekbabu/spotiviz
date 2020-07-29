@@ -71,4 +71,7 @@ def spotify_sentiment_analysis():
     
     print(profile_data)
 
-    return render_template('visualize.html')
+    name = profile_data['display_name'].partition(' ')[0]
+    profile_pic = profile_data['images'][0]['url']
+
+    return render_template('visualize.html', name=name, profile_pic=profile_pic)

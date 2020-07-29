@@ -42,6 +42,10 @@ h2 {
   color: #1DB954;
 }
 
+.nav-link {
+  text-align: center !important;
+}
+
 #login {
   width: 100%;
   height: 100vh;
