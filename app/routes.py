@@ -19,7 +19,7 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 # Server-side parameters
 CLIENT_SIDE_URL = "http://127.0.0.1:5000/"
-REDIRECT_URI = "http://localhost:5000/visualize"
+REDIRECT_URI = "http://127.0.0.1:5000/visualize"
 SCOPE = 'user-read-private user-read-playback-state user-modify-playback-state user-library-read'
 STATE = ""
 SHOW_DIALOG_bool = True
