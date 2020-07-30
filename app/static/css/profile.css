@@ -2,6 +2,7 @@ body {
   font-family: Circular, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  background-color: #f1f1f1;
 }
 
 body > header {
@@ -29,6 +30,48 @@ body > footer {
 
 #profile {
   border-radius: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  width: 100%;
+  height: auto;
+  backface-visibility: hidden;
+  border: 1px solid black;
+}
+
+.info {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 80%;
+  width: 80%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.col:hover .image {
+  opacity: 0.3;
+}
+
+.col:hover .info {
+  opacity: 1;
+}
+
+.text {
+  background-color: #1DB954;
+  color: white;
+  font-size: 150%;
+  padding: 16px 32px;
+}
+
+.top-buffer {
+  margin-top: 5%;
 }
 
 @font-face {
