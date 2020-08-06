@@ -50,21 +50,23 @@
     <main class="justify-content-center">
 
       <div class="container">
-        <div class="row align-items-center">
+        <div class="row">
           {% for track in recent_6_tracks %}
-            <div class="col d-flex justify-content-center align-items-center">
-              <img src={{ track.track.album.images[0].url }} class="image"/>
-              <div class="info justify-content-center align-items center">
-                <div class="text">
-                  <strong>{{ track.track.name }}</strong>
-                  <br/>
-                  {{ track.track.artists[0].name }}
-                  {% for artist in track.track.artists %}
-                    {% if not loop.first %}
-                      <br/>
-                      {{ artist.name }}
-                    {% endif %}
-                  {% endfor %}
+            <div class="col col-md-4 justify-content-center align-items-center">
+              <div class="img-container">
+                <img src={{ track.track.album.images[0].url }} class="image"/>
+                <div class="info">
+                  <div class="text">
+                    <strong>{{ track.track.name }}</strong>
+                    <br/>
+                    {{ track.track.artists[0].name }}
+                    {% for artist in track.track.artists %}
+                      {% if not loop.first %}
+                        <br/>
+                        {{ artist.name }}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
             </div>

@@ -24,7 +24,7 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 CLIENT_SIDE_URL = "http://127.0.0.1"
 PORT = 5000
 REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
-SCOPE = "user-read-private user-read-playback-state user-modify-playback-state user-library-read user-read-recently-played"
+SCOPE = "user-read-private user-read-playback-state user-modify-playback-state user-library-read user-read-recently-played user-top-read"
 # STATE = ""
 # SHOW_DIALOG_bool = True
 # SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
@@ -73,3 +73,10 @@ RECENTLY_PLAYED_ENDPOINT = "{}/me/player/recently-played".format(SPOTIFY_API_URL
 def get_recently_played(auth_header):
     recently_played_response = requests.get(RECENTLY_PLAYED_ENDPOINT, headers=auth_header)
     return json.loads(recently_played_response.text)
+
+### Top artists
+TOP_ARTISTS_ENDPOINT = "{}/me/top/artists".format(SPOTIFY_API_URL)
+def get_top_artists(auth_header, time_range, limit):
+    payload = {'time_range': time_range, 'limit': limit }
+    top_artists_response = requests.get(TOP_ARTISTS_ENDPOINT, headers=auth_header, params=payload)
+    return json.loads(top_artists_response.text)

@@ -39,7 +39,7 @@ body > footer {
   width: 100%;
   height: auto;
   backface-visibility: hidden;
-  border: 1px solid black;
+  border: 3px solid black;
 }
 
 .info {
@@ -55,18 +55,19 @@ body > footer {
   text-align: center;
 }
 
-.col:hover .image {
+.img-container:hover .image {
   opacity: 0.3;
+  border: none;
 }
 
-.col:hover .info {
+.img-container:hover .info {
   opacity: 1;
 }
 
 .text {
   background-color: #1DB954;
   color: white;
-  font-size: 150%;
+  font-size: 2vw;
   padding: 16px 32px;
 }
 

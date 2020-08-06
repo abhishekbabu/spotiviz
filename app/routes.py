@@ -39,6 +39,9 @@ def profile():
                 recent_tracks[item["track"]["id"]] = item
             if len(recent_tracks) == 6:
                 break
+        
+        top_artists = spotify_service.get_top_artists(auth_header, 'short_term', 5)
+        print(top_artists)
 
         return render_template('profile.html', name=first_name, profile_pic=profile_pic, recent_6_tracks=recent_tracks.values())
     
