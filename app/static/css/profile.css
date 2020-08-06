@@ -1,5 +1,5 @@
 body {
-  font-family: Circular, Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', 'Montserrat', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   background-color: #f1f1f1;
@@ -18,6 +18,10 @@ body > footer {
   background-color: #3F3F3F;
   padding: 3vh 5vw;
   color: #fff;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .link {
@@ -67,50 +71,10 @@ body > footer {
 .text {
   background-color: #1DB954;
   color: white;
-  font-size: 2vw;
+  font-size: 1.8vw;
   padding: 16px 32px;
 }
 
 .top-buffer {
   margin-top: 5%;
-}
-
-@font-face {
-  font-family: Circular;
-  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-light.woff2) format("woff2"),
-       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-light.woff) format("woff");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Circular;
-  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-book.woff2) format("woff2"),
-       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-book.woff) format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Circular;
-  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-medium.woff2) format("woff2"),
-       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-medium.woff) format("woff");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Circular;
-  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-bold.woff2) format("woff2"),
-       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-bold.woff) format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Circular;
-  src: url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-black.woff2) format("woff2"),
-       url(https://sp-bootstrap.global.ssl.fastly.net/8.0.0/fonts/circular-black.woff) format("woff");
-  font-weight: 900;
-  font-style: normal;
 }

@@ -41,7 +41,8 @@ def profile():
                 break
         
         top_artists = spotify_service.get_top_artists(auth_header, 'short_term', 5)
-        print(top_artists)
+        for item in top_artists["items"]:
+            print(item["name"])
 
         return render_template('profile.html', name=first_name, profile_pic=profile_pic, recent_6_tracks=recent_tracks.values())
     

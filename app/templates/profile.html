@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- script to remove Facebook callback url hash -->
+    <script type="text/javascript">
+      var idx = window.location.toString().indexOf("#_=_");
+      if (idx > 0) {
+        window.location = window.location.toString().substring(0, idx);
+      }
+    </script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <title>SpotiViz</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="static/css/profile.css" />
@@ -13,14 +23,14 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
-        <img src="static/img/logo.png" width="160" height="50" alt=""/>
+        <h1>Spoti<span style="color: #1DB954;">Viz</span></h1>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <ul class="navbar-nav mt-2 mt-lg-0">
           <li class="nav-item active">
             <a class="nav-link d-flex flex-column text-center" href="#"><i class="fa fa-home" aria-hidden="true"></i>Home<span class="sr-only">(current)</span></a>
           </li>
@@ -57,8 +67,7 @@
                 <img src={{ track.track.album.images[0].url }} class="image"/>
                 <div class="info">
                   <div class="text">
-                    <strong>{{ track.track.name }}</strong>
-                    <br/>
+                    <div class="bold">{{ track.track.name }}</div>
                     {{ track.track.artists[0].name }}
                     {% for artist in track.track.artists %}
                       {% if not loop.first %}
