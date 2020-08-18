@@ -28,10 +28,16 @@ def profile():
         # Get profile data
         profile_data = spotify_service.get_user_profile(auth_header)
         first_name = profile_data['display_name'].partition(' ')[0]
-        profile_pic = profile_data['images'][0]['url']
+
+        profile_pic = 'https://via.placeholder.com/150'
+        if (len(profile_data['images']) > 0):
+            profile_pic = profile_data['images'][0]['url']
 
         # Get 6 most recently played tracks
         recently_played = spotify_service.get_recently_played(auth_header)
+        track_count = len(recently_played["items"])
+        if track_count > 6:
+            track_count = 6
         recent_6_tracks = recently_played["items"][0:6]
 
         recent_tracks = {}
@@ -39,7 +45,7 @@ def profile():
             if item["track"]["id"] not in recent_tracks.keys():
                 item["track"]["name"] = re.sub(r'\([^)]*\)', '', item["track"]["name"])
                 recent_tracks[item["track"]["id"]] = item
-            if len(recent_tracks) == 6:
+            if len(recent_tracks) == track_count:
                 break
         
         top_artists = spotify_service.get_top_artists(auth_header, 'short_term', 5)
