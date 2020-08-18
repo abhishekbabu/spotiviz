@@ -1,7 +1,7 @@
 body {
   font-family: 'Nunito', 'Montserrat', Helvetica, Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.25;
   background-color: #f1f1f1;
 }
 
@@ -21,7 +21,9 @@ body > footer {
 }
 
 .bold {
+  font-size: 1.8vw;
   font-weight: 700;
+  padding-bottom: 1.5vh;
 }
 
 .link {
@@ -71,7 +73,7 @@ body > footer {
 .text {
   background-color: #1DB954;
   color: white;
-  font-size: 1.8vw;
+  font-size: 1.2vw;
   padding: 16px 32px;
 }
 

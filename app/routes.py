@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, session
 from app import app
 from app import spotify_service
+import re
 
 # App routes
 @app.route('/')
@@ -36,6 +37,7 @@ def profile():
         recent_tracks = {}
         for item in recently_played["items"]:
             if item["track"]["id"] not in recent_tracks.keys():
+                item["track"]["name"] = re.sub(r'\([^)]*\)', '', item["track"]["name"])
                 recent_tracks[item["track"]["id"]] = item
             if len(recent_tracks) == 6:
                 break
