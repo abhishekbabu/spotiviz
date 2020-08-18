@@ -23,7 +23,8 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 ### Server-side parameters
 CLIENT_SIDE_URL = "http://127.0.0.1"
 PORT = 5000
-REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
+# REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
+REDIRECT_URI = "https://spotivizual.herokuapp.com/callback"
 SCOPE = "user-read-private user-read-playback-state user-modify-playback-state user-library-read user-read-recently-played user-top-read"
 # STATE = ""
 # SHOW_DIALOG_bool = True
