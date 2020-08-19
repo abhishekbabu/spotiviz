@@ -1,22 +1,21 @@
 body {
-  font-family: 'Nunito', 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: 'Rubik', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.25;
   background-color: #f1f1f1;
 }
 
-body > header {
-  padding: 5vh 5vh;
-}
-
 body > main {
-  padding-top: 3vh;
-  padding-bottom: 8vh;
+  font-family: 'Nunito', Arial, Helvetica, sans-serif;
+  padding-top: 2.5vh;
+  padding-bottom: 4vh;
 }
   
 body > footer {
   background-color: #3F3F3F;
-  padding: 3vh 5vw;
+  padding-left: 5vw;
+  padding-top: 3vh;
+  padding-bottom: 3.2vh;
   color: #fff;
 }
 
@@ -27,7 +26,7 @@ body > footer {
 }
 
 .link {
-  color: #1DB954;
+  color: #1ED760;
 }
 
 .nav-link {
@@ -38,45 +37,19 @@ body > footer {
   border-radius: 50%;
 }
 
-.image {
-  opacity: 1;
-  display: block;
-  transition: .5s ease;
-  width: 100%;
-  height: auto;
-  backface-visibility: hidden;
-  border: 3px solid black;
+.track-img {
+  float: left;
+  margin-right: 2rem;
+  border-radius: 10%;
+  object-fit: cover;
 }
 
-.info {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 80%;
-  width: 80%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
+.artist-img {
+  margin-right: 2rem;
+  border-radius: 10%;
+  object-fit: cover;
 }
 
-.img-container:hover .image {
-  opacity: 0.3;
-  border: none;
-}
-
-.img-container:hover .info {
-  opacity: 1;
-}
-
-.text {
-  background-color: #1DB954;
-  color: white;
-  font-size: 1.2vw;
-  padding: 16px 32px;
-}
-
-.top-buffer {
-  margin-top: 5%;
+.navbar-custom {
+  background-color: #3F3F3F;
 }
