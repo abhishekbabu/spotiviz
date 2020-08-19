@@ -23,7 +23,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
       <a class="navbar-brand" href="#">
-        <h1>Spoti<span style="color: #1DB954;">Viz</span></h1>
+        <img src="static/img/logo.gif" alt="Logo" width="200" height="70"/>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -59,13 +59,13 @@
         <div class="row row-cols-2">
             <div class="col">
               <ul class="list-group">
-                <li class="list-group-item">
-                  Recent Tracks
+                <li class="list-group-item list-title">
+                  <strong>Recent Tracks</strong>
                 </li>
                 {% for item in recent_tracks %}
-                  <a href="#" class="list-group-item list-group-item-action align-middle">
+                  <a href="#" class="list-group-item list-group-item-action">
                     <img src={{ item.track.album.images[0].url }} width="80" height="80" class="track-img"/>
-                    {{ item.track.name }}
+                    <span class="item-name"><strong>{{ item.track.name }}</strong></span>
                     <br/>
                     {{ item.track.artists[0].name }}{% for artist in item.track.artists %}{% if not loop.first %}, {{ artist.name }}{% endif %}{% endfor %}
                   </a>
@@ -74,13 +74,13 @@
             </div>
             <div class="col">
               <ul class="list-group">
-                <li class="list-group-item">
-                  Top Artists - Last Month
+                <li class="list-group-item list-title">
+                  <strong>Top Artists</strong> - Last Month
                 </li>
                 {% for artist in top_artists %}
                   <a href="#" class="list-group-item list-group-item-action">
                     <img src={{ artist.images[0].url }} width="80" height="80" class="artist-img"/>
-                    &ensp;{{ artist.name }}
+                    <span class="item-name"><strong>{{ artist.name }}</strong></span>
                   </a>
                 {% endfor %}
               </ul>

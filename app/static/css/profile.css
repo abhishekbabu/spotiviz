@@ -2,7 +2,7 @@ body {
   font-family: 'Rubik', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.25;
-  background-color: #f1f1f1;
+  background-color: #DECDC3;
 }
 
 body > main {
@@ -12,11 +12,11 @@ body > main {
 }
   
 body > footer {
-  background-color: #3F3F3F;
+  background-color: #2D4059;
   padding-left: 5vw;
   padding-top: 3vh;
   padding-bottom: 3.2vh;
-  color: #fff;
+  color: #E5E5E5;
 }
 
 .bold {
@@ -26,7 +26,7 @@ body > footer {
 }
 
 .link {
-  color: #1ED760;
+  color: #EA5455;
 }
 
 .nav-link {
@@ -51,5 +51,14 @@ body > footer {
 }
 
 .navbar-custom {
-  background-color: #3F3F3F;
+  background-color: #2D4059;
+}
+
+.list-title {
+  font-family: 'Rubik', Helvetica, Arial, sans-serif;
+  color: #2D4059;
+}
+
+.item-name {
+  color: #EA5455;
 }
