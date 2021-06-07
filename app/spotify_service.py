@@ -3,7 +3,6 @@ from urllib.parse import quote
 import base64
 import requests
 import json
-import sys
 
 ### Client keys
 CLIENT = json.load(open('conf.json', 'r+'))

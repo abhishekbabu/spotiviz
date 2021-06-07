@@ -50,7 +50,7 @@ def profile():
                 recent_tracks[item["track"]["id"]] = item
             if len(recent_tracks) == track_count:
                 break
-        
+
         top_artists = spotify_service.get_top_artists(auth_header, 'short_term', PROFILE_ITEM_COUNT)
 
         return render_template('profile.html',

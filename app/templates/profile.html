@@ -63,7 +63,7 @@
                   <strong>Recent Tracks</strong>
                 </li>
                 {% for item in recent_tracks %}
-                  <a href="#" class="list-group-item list-group-item-action">
+                  <a href={{ item.track.external_urls.spotify }} target="_blank" class="list-group-item list-group-item-action">
                     <img src={{ item.track.album.images[0].url }} width="80" height="80" class="track-img"/>
                     <span class="item-name"><strong>{{ item.track.name }}</strong></span>
                     <br/>
@@ -78,7 +78,7 @@
                   <strong>Top Artists</strong> - Last Month
                 </li>
                 {% for artist in top_artists %}
-                  <a href="#" class="list-group-item list-group-item-action">
+                  <a href={{ artist.external_urls.spotify }} target="_blank" class="list-group-item list-group-item-action">
                     <img src={{ artist.images[0].url }} width="80" height="80" class="artist-img"/>
                     <span class="item-name"><strong>{{ artist.name }}</strong></span>
                   </a>
