@@ -4,6 +4,8 @@ from app import spotify_service
 import re
 
 PROFILE_ITEM_COUNT = 5
+TOP_ARTISTS_COUNT = 50
+TOP_TRACKS_COUNT = 50
 
 # App routes
 @app.route('/')
@@ -29,13 +31,12 @@ def profile():
 
         # Get profile data
         profile_data = spotify_service.get_user_profile(auth_header)
-        first_name = profile_data['display_name'].partition(' ')[0]
-
+        profile_data['first_name'] = profile_data['display_name'].partition(' ')[0]
         profile_pic = 'https://via.placeholder.com/150'
-        if (len(profile_data['images']) > 0):
+        if len(profile_data['images']) > 0:
             profile_pic = profile_data['images'][0]['url']
 
-        # Get 6 most recently played tracks
+        # Get most recently played tracks
         recently_played = spotify_service.get_recently_played(auth_header)
         track_count = len(recently_played["items"])
         if track_count > PROFILE_ITEM_COUNT:
@@ -54,7 +55,7 @@ def profile():
         top_artists = spotify_service.get_top_artists(auth_header, 'short_term', PROFILE_ITEM_COUNT)
 
         return render_template('profile.html',
-                                name=first_name,
+                                profile=profile_data,
                                 profile_pic=profile_pic,
                                 recent_tracks=recent_tracks.values(),
                                 top_artists=top_artists["items"])
@@ -65,3 +66,45 @@ def profile():
 def top_artists():
     if 'auth_header' in session:
         auth_header = session['auth_header']
+
+        # Get profile data
+        profile_data = spotify_service.get_user_profile(auth_header)
+        profile_data['first_name'] = profile_data['display_name'].partition(' ')[0]
+        profile_pic = 'https://via.placeholder.com/150'
+        if len(profile_data['images']) > 0:
+            profile_pic = profile_data['images'][0]['url']
+        
+        top_artists_all = spotify_service.get_top_artists(auth_header, 'long_term', TOP_ARTISTS_COUNT)
+        top_artists_six = spotify_service.get_top_artists(auth_header, 'medium_term', TOP_ARTISTS_COUNT)
+
+        return render_template('top-artists.html',
+                                profile=profile_data,
+                                profile_pic=profile_pic,
+                                top_artists_all=top_artists_all['items'],
+                                top_artists_six=top_artists_six['items'])
+
+@app.route('/top-tracks')
+def top_tracks():
+    if 'auth_header' in session:
+        auth_header = session['auth_header']
+
+        # Get profile data
+        profile_data = spotify_service.get_user_profile(auth_header)
+        profile_data['first_name'] = profile_data['display_name'].partition(' ')[0]
+        profile_pic = 'https://via.placeholder.com/150'
+        if len(profile_data['images']) > 0:
+            profile_pic = profile_data['images'][0]['url']
+        
+        top_tracks_all = spotify_service.get_top_tracks(auth_header, 'long_term', TOP_TRACKS_COUNT)
+        top_tracks_six = spotify_service.get_top_tracks(auth_header, 'medium_term', TOP_TRACKS_COUNT)
+
+        for item in top_tracks_all['items']:
+            item['name'] = re.sub(r'\([^)]*\)', '', item["name"])
+        for item in top_tracks_six['items']:
+            item['name'] = re.sub(r'\([^)]*\)', '', item["name"])
+
+        return render_template('top-tracks.html',
+                                profile=profile_data,
+                                profile_pic=profile_pic,
+                                top_tracks_all=top_tracks_all['items'],
+                                top_tracks_six=top_tracks_six['items'])

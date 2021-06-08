@@ -3,6 +3,7 @@ from urllib.parse import quote
 import base64
 import requests
 import json
+import os
 
 ### Client keys
 CLIENT = json.load(open('conf.json', 'r+'))
@@ -20,25 +21,30 @@ API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 ### Server-side parameters
+HEROKU_URL = "https://spotivizual.herokuapp.com"
 CLIENT_SIDE_URL = "http://127.0.0.1"
 PORT = 5000
-# REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
-REDIRECT_URI = "https://spotivizual.herokuapp.com/callback"
-SCOPE = "user-read-private user-read-playback-state user-modify-playback-state user-library-read user-read-recently-played user-top-read"
-# STATE = ""
-# SHOW_DIALOG_bool = True
-# SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
+if 'DYNO' in os.environ:
+    REDIRECT_URI = "{}/callback".format(HEROKU_URL)
+else:
+    REDIRECT_URI = "{}:{}/callback".format(CLIENT_SIDE_URL, PORT)
+SCOPE = ('user-read-private '
+         'user-read-playback-state '
+         'user-modify-playback-state '
+         'user-library-read '
+         'user-read-recently-played '
+         'user-top-read')
 
+### Authorization Query Parameters
 auth_query_parameters = {
     "response_type": "code",
     "redirect_uri": REDIRECT_URI,
     "scope": SCOPE,
     "client_id": CLIENT_ID
-    # "state": STATE,
-    # "show_dialog": SHOW_DIALOG_str,
 }
 
-URL_ARGS = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key, val in auth_query_parameters.items()])
+### Authorization URL
+URL_ARGS = "&".join(["{}={}".format(key, urllib.parse.quote(val)) for key, val in auth_query_parameters.items()])
 AUTH_URL = "{}/?{}".format(SPOTIFY_AUTH_URL, URL_ARGS)
 
 ### User authorization
@@ -80,3 +86,10 @@ def get_top_artists(auth_header, time_range, limit):
     payload = {'time_range': time_range, 'limit': limit }
     top_artists_response = requests.get(TOP_ARTISTS_ENDPOINT, headers=auth_header, params=payload)
     return json.loads(top_artists_response.text)
+
+### Top tracks
+TOP_TRACKS_ENDPOINT = "{}/me/top/tracks".format(SPOTIFY_API_URL)
+def get_top_tracks(auth_header, time_range, limit):
+    payload = {'time_range': time_range, 'limit': limit }
+    top_tracks_response = requests.get(TOP_TRACKS_ENDPOINT, headers=auth_header, params=payload)
+    return json.loads(top_tracks_response.text)
